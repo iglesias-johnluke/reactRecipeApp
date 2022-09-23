@@ -21,10 +21,10 @@ const App = () => {
 
   useEffect( () => {
     getRecipes()
-  }, []);
+  }, [query]); //getRecipes whenever query state is updated
   
   
-//fetch data, initialize recipe variable
+/*fetch data, initialize recipe variable*/
   async function getRecipes(){
     let response = await fetch(exampleRequest);
     let data = await response.json();
@@ -32,12 +32,14 @@ const App = () => {
     setRecipes(data.hits) 
   }
   
+  //updates search state variable according to what is type in search form
+  //updates whenever search bar onChange
   function updateSearch(newText){
     setSearch(newText.target.value)
   }
 
   //called whenever we submit form text/query/search
-  //only update url fetch query when we press search (sets searchbar text to query value)
+  //only update url fetch QUERY when we press search (sets searchbar text to query value)
   function getSearch(event){
     event.preventDefault() //prevent page refresh
     setQuery(search)
@@ -53,19 +55,23 @@ const App = () => {
           className='search-button'>{counter}
           
         </button>
-        <h1 onClick={() => setCounter(counter + 1) }>{counter}</h1>
-        {recipes.map(
-          recipe => 
-            <Recipe 
-            key={recipe.recipe.label} //key gets rid of unique property error
-            title={recipe.recipe.label}
-            calories={recipe.recipe.calories}
-            image={recipe.recipe.image}
-            />
-            
-          ) 
-        }
+        
       </form>
+      <div className='recipes'>
+        {recipes.map(
+            recipe => 
+              <Recipe 
+              key={recipe.recipe.label} //key gets rid of unique property error
+              title={recipe.recipe.label}
+              calories={recipe.recipe.calories}
+              image={recipe.recipe.image}
+              ingredients={recipe.recipe.ingredients}
+              />
+              
+            ) 
+          }
+      </div>
+       
     </div>
   );
 }
