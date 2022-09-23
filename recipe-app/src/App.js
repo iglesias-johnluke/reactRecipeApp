@@ -5,7 +5,6 @@ import Recipe from "./Recipe"
 
 const App = () => {
   
-  const [counter, setCounter] = useState(0); //tracks how many times counter header is touched
   const[recipes, setRecipes] = useState([]); //recipes is fetched list of recipe objects
   const [search, setSearch] = useState("") //tracks search bar text
   const [query, setQuery] = useState("chicken")//tracks what user is searching in search bar
@@ -52,7 +51,7 @@ const App = () => {
         <input type="text" className='search-bar' value={search} onChange={updateSearch} />
         <button 
           type='submit' 
-          className='search-button'>{counter}
+          className='search-button'>Search
           
         </button>
         
